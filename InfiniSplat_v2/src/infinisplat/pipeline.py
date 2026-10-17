@@ -98,7 +98,7 @@ class Pipeline:
     @torch.inference_mode()
     def reconstruct(self, images, cameras=None, long_side=518, max_views=12, pose_mode=None):
         images = list(images)
-        pose_mode = pose_mode or ('provided' if cameras is not None else 'pose-free')
+        pose_mode = pose_mode or ('provided' if cameras is not None else 'da3-pose')
         if pose_mode not in ('provided', 'da3-pose', 'pose-free'):
             raise ValueError('pose_mode must be provided, da3-pose or pose-free')
         if (pose_mode == 'provided') != (cameras is not None):

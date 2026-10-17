@@ -75,6 +75,16 @@ Weights and original PNG samples are hosted in
 [Edisoneh/InfiniSplat-v2](https://huggingface.co/Edisoneh/InfiniSplat-v2).
 See [weight setup](INSTALL.md#weights) for access and download details.
 
+For your own images without cameras, the default is `da3-pose`: DA3 first
+predicts camera poses and intrinsics, then uses them to condition reconstruction.
+
+```bash
+infinisplat --model weights/da3 --images-dir images --output result_da3 --no-html
+```
+
+Supplying `--cameras` or `--colmap` automatically selects `provided` mode.
+Use `--pose-mode pose-free` explicitly to skip the camera prepass.
+
 ## 🖥️ Inference
 
 See the [inference guide](docs/inference.md) for commands, camera inputs and output

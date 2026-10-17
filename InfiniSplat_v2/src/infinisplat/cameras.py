@@ -116,7 +116,7 @@ def load_colmap(directory, images):
 
 def add_camera_arguments(parser):
     parser.add_argument('--pose-mode', choices=['provided','da3-pose','pose-free'],
-                        help='Default: provided with camera input, otherwise pose-free')
+                        help='Default: provided with camera input, otherwise da3-pose')
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--cameras', help='NPZ: OpenCV c2w [N,4,4], original pixel intrinsics [N,3,3], in --images order')
     group.add_argument('--colmap', help='Undistorted COLMAP TXT or BIN model directory')
@@ -124,7 +124,7 @@ def add_camera_arguments(parser):
 
 def resolve_camera_arguments(args, parser):
     provided = bool(args.cameras or args.colmap)
-    mode = args.pose_mode or ('provided' if provided else 'pose-free')
+    mode = args.pose_mode or ('provided' if provided else 'da3-pose')
     if (mode == 'provided') != provided:
         parser.error('provided requires --cameras or --colmap; other modes accept neither')
     cameras = None

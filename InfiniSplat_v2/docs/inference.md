@@ -5,8 +5,10 @@ See [installation](../INSTALL.md), [examples](../examples/README.md) and the
 
 ## Run reconstruction
 
-Use supplied camera poses and intrinsics when available. Otherwise, we recommend
-the DA3-estimated camera prior (`--pose-mode da3-pose`).
+Use supplied camera poses and intrinsics when available. Without camera inputs,
+the CLI, Python API and example script default to `da3-pose`: DA3 predicts a camera
+prior, then conditions reconstruction on it. Supplying cameras defaults to
+`provided`; `pose-free` requires an explicit selection.
 
 Choose the command that matches your inputs:
 
@@ -14,13 +16,13 @@ Choose the command that matches your inputs:
 # Images with supplied cameras
 infinisplat --model weights/da3 --images-dir images --cameras cameras.npz --output result_calibrated --no-html
 
-# Images with a DA3-estimated camera prior
-infinisplat --model weights/da3 --images-dir images --pose-mode da3-pose --output result_da3 --no-html
+# Images with a DA3-estimated camera prior (default)
+infinisplat --model weights/da3 --images-dir images --output result_da3 --no-html
 
 # Registered, undistorted images with a COLMAP model
 infinisplat --model weights/da3 --images-dir prepared/undistorted/images --colmap prepared/undistorted/sparse_txt --output result_colmap --no-html
 
-# Images only
+# Images only, explicitly skipping the camera prepass
 infinisplat --model weights/da3 --images-dir images --pose-mode pose-free --output result --no-html
 ```
 
@@ -57,7 +59,7 @@ into native RDNorm space. It is saved with a hash in `camera_prior.npz`.
 from infinisplat import Pipeline, export_ply
 
 pipeline = Pipeline.from_pretrained('weights/da3')
-scene = pipeline(['photo1.jpg', 'photo2.jpg'], pose_mode='da3-pose')
+scene = pipeline(['photo1.jpg', 'photo2.jpg'])  # Defaults to da3-pose
 export_ply(scene, 'result', html=True)
 ```
 
@@ -137,7 +139,7 @@ Neither interface silently discards images.
 | --- | --- |
 | `--model` | Local DA3 inference bundle or v2 model Hub ID |
 | `--images-dir` / `--images` | Image directory or explicitly ordered paths |
-| `--pose-mode` | `pose-free`, `da3-pose`, or `provided` |
+| `--pose-mode` | Default: `da3-pose` without cameras, `provided` with cameras; `pose-free` is opt-in |
 | `--cameras` / `--colmap` | Camera NPZ or undistorted COLMAP TXT/BIN model |
 | `--output` | New output directory |
 | `--long-side` | Resolution; default 518, accepted range 112–2044 |

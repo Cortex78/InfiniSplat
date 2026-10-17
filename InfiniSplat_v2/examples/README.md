@@ -51,20 +51,24 @@ images of one static scene directly in `images/` to start. Filenames determine t
 view order; supported extensions are JPG/JPEG, PNG and WebP, case-insensitively.
 Use a new output directory for every command.
 
-## 1. RGB-only reconstruction
+## 1. Images without supplied cameras
+
+By default, DA3 predicts cameras first and uses that prior to condition reconstruction:
+
+```bash
+infinisplat --model weights/da3 --images-dir images --output result_prior --no-html
+```
+
+This is equivalent to explicitly passing `--pose-mode da3-pose`. To skip the
+camera prepass, select `pose-free` explicitly:
 
 ```bash
 infinisplat --model weights/da3 --images-dir images --pose-mode pose-free --output result_rgb --no-html
 ```
 
-For a DA3 camera prepass followed by conditioned reconstruction:
-
-```bash
-infinisplat --model weights/da3 --images-dir images --pose-mode da3-pose --output result_prior --no-html
-```
-
-Both routes produce `scene.ply`, `cameras.npz` and `result.json`; the second also
-produces `camera_prior.npz`. Quality depends on image overlap and camera estimates.
+Both routes produce `scene.ply`, `cameras.npz` and `result.json`; the default
+`da3-pose` route also produces `camera_prior.npz`. Quality depends on image
+overlap and camera estimates.
 
 ## 2. COLMAP cameras
 
@@ -95,7 +99,8 @@ Then run the complete Python API example:
 python examples/reconstruct.py --model weights/da3 --images-dir images --pose-mode provided --cameras cameras.npz --output result_api
 ```
 
-The same script accepts `--pose-mode pose-free`, `--pose-mode da3-pose`, or
+The script uses the same defaults as the CLI: `da3-pose` without cameras and
+`provided` with cameras. It also accepts `--pose-mode pose-free`, `--pose-mode da3-pose`, or
 `--pose-mode provided --colmap prepared/undistorted/sparse_txt`.
 
 ## View results
