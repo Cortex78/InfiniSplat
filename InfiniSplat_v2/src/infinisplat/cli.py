@@ -14,12 +14,15 @@ def main():
     parser.add_argument('--output', required=True)
     parser.add_argument('--device', default='cuda:0')
     parser.add_argument('--long-side', type=int, default=518)
-    parser.add_argument('--max-views', type=int, default=32, choices=range(2, 51), metavar='2..50')
+    parser.add_argument('--max-views', type=int, default=32, metavar='N',
+                        help='Largest accepted input count (default 32, at least 2); GPU memory sets the practical limit')
     parser.add_argument('--no-html', action='store_true', help='Export PLY only; skip the standalone SH0 viewer')
     add_camera_arguments(parser)
     args = parser.parse_args()
     if not 112 <= args.long_side <= 2044:
         parser.error('--long-side must be between 112 and 2044')
+    if args.max_views < 2:
+        parser.error('--max-views must be at least 2')
     if args.images_dir is not None:
         if not args.images_dir.is_dir():
             parser.error('--images-dir must be an existing directory')

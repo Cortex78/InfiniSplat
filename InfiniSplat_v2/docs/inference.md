@@ -129,7 +129,8 @@ Use `--images-dir` to select supported files directly inside a directory in file
 order (case-sensitive lexical order; extensions are case-insensitive). Subdirectories
 are not scanned. For a chosen subset or custom view order, use `--images` instead.
 NPZ cameras must follow this exact order. COLMAP cameras are matched by filename.
-The CLI uses a maximum of 32 views by default; `--max-views 50` permits up to 50.
+The CLI uses a maximum of 32 views by default; `--max-views N` raises it. There is no
+fixed upper limit: GPU memory grows with the number of views and the resolution.
 The Python API defaults to 12 views; pass `max_views` explicitly for larger scenes.
 Neither interface silently discards images.
 
@@ -143,7 +144,7 @@ Neither interface silently discards images.
 | `--cameras` / `--colmap` | Camera NPZ or undistorted COLMAP TXT/BIN model |
 | `--output` | New output directory |
 | `--long-side` | Resolution; default 518, accepted range 112–2044 |
-| `--max-views` | Input count limit; default 32, range 2–50 |
+| `--max-views` | Input count limit; default 32, at least 2; more views need more GPU memory |
 | `--device` | CUDA device; default `cuda:0` |
 | `--no-html` | Export PLY without the optional HTML converter |
 
