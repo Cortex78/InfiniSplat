@@ -21,8 +21,9 @@ def sha256(path):
 
 def prepare_images(paths, long_side=518, intrinsics=None, max_views=12):
     paths = [Path(p) for p in paths]
-    if not isinstance(max_views, int) or not 2 <= max_views <= 50:
-        raise ValueError('max_views must be an integer from 2 to 50.')
+    # No fixed upper bound: GPU memory grows with views x resolution and sets the practical limit.
+    if not isinstance(max_views, int) or max_views < 2:
+        raise ValueError('max_views must be an integer of at least 2.')
     if not 2 <= len(paths) <= max_views:
         raise ValueError(f'Upload 2–{max_views} overlapping images of one static scene.')
     if long_side < 112 or long_side > 2044:
