@@ -49,7 +49,7 @@ infinisplat --model weights/da3 --images-dir prepared/undistorted/images --colma
 ```
 
 Use 2–32 registered images by default. For a subset, pass explicit `--images`
-paths instead of `--images-dir`. Use `--max-views 50` for up to 50 views when memory
+paths instead of `--images-dir`. Use `--max-views N` for more views when memory
 permits. More images are never silently truncated.
 
 ## Video input

@@ -69,7 +69,8 @@ For your own scene, place 2–32 overlapping JPG, PNG or WebP images directly in
 `images/`. The
 command reads them in filename order, with a default long side of 518 pixels.
 Output directories must be new. Start with 2–4 images and `--long-side 224` to check
-your environment. `--max-views 50` supports larger input sets when memory permits.
+your environment. `--max-views N` (for example 50 or 200) supports larger input sets when
+memory permits.
 
 Weights and original PNG samples are hosted in
 [Edisoneh/InfiniSplat-v2](https://huggingface.co/Edisoneh/InfiniSplat-v2).

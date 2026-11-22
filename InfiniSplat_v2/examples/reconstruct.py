@@ -14,10 +14,13 @@ def main():
     add_camera_arguments(parser)
     parser.add_argument('--html', action='store_true', help='Also create a standalone SH0 viewer')
     parser.add_argument('--long-side', type=int, default=518)
-    parser.add_argument('--max-views', type=int, default=32, choices=range(2, 51), metavar='2..50')
+    parser.add_argument('--max-views', type=int, default=32, metavar='N',
+                        help='Largest accepted input count (default 32, at least 2); GPU memory sets the practical limit')
     args = parser.parse_args()
     if not 112 <= args.long_side <= 2044:
         parser.error('--long-side must be between 112 and 2044')
+    if args.max_views < 2:
+        parser.error('--max-views must be at least 2')
     if not args.images_dir.is_dir():
         parser.error('--images-dir must exist')
     images = sorted((p for p in args.images_dir.iterdir() if p.is_file() and

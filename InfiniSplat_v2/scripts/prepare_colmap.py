@@ -89,7 +89,7 @@ def main():
         output_path=text_model, output_type='TXT')
     print('Undistorted images:', undistorted / 'images')
     print('Camera model:', text_model)
-    print('Use 2–32 registered images from this component; use --max-views to raise the limit up to 50.')
+    print('Use 2–32 registered images from this component; use --max-views to raise the limit.')
 
 
 if __name__ == '__main__':
