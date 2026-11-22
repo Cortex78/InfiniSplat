@@ -183,6 +183,8 @@ All three versions are included as ordinary directories; no submodule initializa
 
 For v2, run `cd InfiniSplat_v2`; for v1, run `cd InfiniSplat_v1`. Follow the selected version's installation guide. Install each version in its own Python environment; their dependencies and weights differ.
 
+To try all three versions without a local GPU, open the [Colab notebook](notebooks/InfiniSplat_Colab.ipynb): <a href="https://colab.research.google.com/github/Cortex78/InfiniSplat/blob/main/notebooks/InfiniSplat_Colab.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" align="absmiddle"></a>
+
 ## License and Project Use
 
 License: [Project Registration License (PRL) v1.0](LICENSE)
